@@ -1,0 +1,683 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[pdftex]{graphicx}
+%\usepackage[dvipdfmx]{graphicx,psfrag}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{tabularx}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{bm}
+\usepackage[top=3cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
+%
+\usepackage{latexsym}
+\usepackage{ascmac}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{theorem} %% We recommend that you use this package in JSIAM 
+\usepackage{txfonts} 
+\usepackage[multiple]{footmisc}
+\usepackage{lineno}
+\usepackage{authblk}
+\usepackage{color}
+
+%
+%
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{
+  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+  \renewenvironment{#1}
+     {\linenomath\csname old#1\endcsname}
+     {\csname oldend#1\endcsname\endlinenomath}}
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{
+  \patchAmsMathEnvironmentForLineno{#1}
+  \patchAmsMathEnvironmentForLineno{#1*}}
+\AtBeginDocument{
+\patchBothAmsMathEnvironmentsForLineno{equation}
+\patchBothAmsMathEnvironmentsForLineno{align}
+\patchBothAmsMathEnvironmentsForLineno{flalign}
+\patchBothAmsMathEnvironmentsForLineno{alignat}
+\patchBothAmsMathEnvironmentsForLineno{gather}
+\patchBothAmsMathEnvironmentsForLineno{multline}
+}
+\linenumbers
+%
+%
+\newcommand{\vect}[1]{\mbox{\boldmath$#1$}}
+\newcommand{\svect}[1]{\mbox{\small \boldmath$#1$}}
+\newcommand{\ds}{$\displaystyle$}
+\newcommand{\dd}{{\rm d}}
+\newcommand{\ee}{{\rm e}}
+\newcommand{\ii}{{\rm i}}
+\newcommand{\RRe}{{\rm Re}}
+\newcommand{\sgn}{{\rm sgn}}
+%\newcommand{\mod}{{\rm mod}}
+\newcommand{\rank}{{\rm rank}}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\spp}{\hspace{1ex}}
+%
+%
+%
+%
+%
+\newcommand{\red}{\textcolor{red}}
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\red}{\textcolor{red}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theorembodyfont{\normalfont}
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{lemm}{Lemma}[section]
+\newtheorem{exam}{Example}[section]
+\newtheorem{pro}{Proposition}[section]
+\newtheorem{coll}{Corollary}[section]
+%
+\newtheorem{rem}{Remark}[section]
+%
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\newcommand{\noi}{\noindent}
+\def\defarrow{\overset{\mathrm{def}}{\Longleftrightarrow}}
+\def\defeq{\overset{\mathrm{def}}{=}}
+
+\makeatletter
+\def\setcaption#1{\def\@captype{#1}}
+\makeatother
+%
+
+\allowdisplaybreaks
+
+\title{Preprint} 
+\author[1]{Hirokazu Komatsu*}
+\author[2,3]{Hideshi Ooka}
+\author[3, 4]{Ryuhei Nakamura}
+\author[5]{Atsushi Mochizuki}
+\affil[1]{Institute for General Education Division, Faculty of Engineering,  Kindai University, Hiroshima, 739--2116, Japan}
+\affil[2]{Research Center for Energy and Environmental Materials, National Institute for Materials Science, Tsukuba, 305--0044, Japan}
+\affil[3]{Center for Sustainable Resource Science, RIKEN, Saitama, 351--0198, Japan}
+\affil[4]{Earth-Life Science Institute, Science Tokyo, Tokyo, 152--8550, Japan}
+\affil[5]{Institute for Life and Medical Sciences, Kyoto University, Kyoto, 606--8507, Japan}
+\date{\empty}
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Abstract         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent{\bf Abstract}~~論文のあらまし：１．（新規）今回の線形反応に高次の反応(保存量を破壊しない)があっても，収束速度（リアプノフ指数）は最大固有値で評価可能．２．線形の場合で示したE（無限大）の最大固有（リアプノフ指数）の振る舞いをネットワーク条件で書き直し．３．（新規）２の結果から直ぐに加減速性を特徴づけることのできる条件を5つほど掲載（前回の環状やコバルトの結果を拡張したものもあります．大岡さんから見て意味のありそうなもののみを掲載したらよいかなと思いました．系４．４，４．５は結構面白いかもしれません）．４．適用例を載せたらよいと思います．少なくとも，具体的な反応系に対してリアプノフ指数と固有値が一致することと加減速性は述べたほうが良いかと思いました．＊今のところ数学の結果のみを記述しているので，投稿先にもよりますが随所に物理的な説明の追記が必要．\\[0.2cm] \noindent
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Key words         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf Keywords.}~\\[0.2cm] \noindent
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Key words         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf AMS subject classifications.}~.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{intro}
+~~
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nonlinear Chemical Reaction Network Model of an Electrocatalyst undergoing Deactivation}\label{CRNT}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~We consider a chemical reaction network used to model an electrocatalyst undergoing deactivation. Let the chemical reaction network be mathematically defined by a triplet $(\mathcal{S}, \mathcal{C}, \mathcal{R})$, where the elements $\mathcal{S}$, $\mathcal{C}$, and $\mathcal{R}$ are defined by \cite{Feinberg}:\\[0.1cm]
+$\mathcal{S}$: the set of $n$ intermediate species involved in the catalytic cycle, which are denoted by $X_1,X_2,\dots,X_n$,\\[0.2cm]
+$\mathcal{C}$: the set of all {\it complexes} $y$ in the network,\\[0.2cm]
+$\mathcal{R}$: the set of all {\it chemical reactions} $y \to y'$ in the network.\\[0.2cm] \noindent
+Here a complex means a linear combination of species, $y=y_1X_1+\cdots+y_nX_n$, with coefficients of non-negative integers, $y_1,y_2,\ldots,y_n $, and a chemical reaction $y \to y'$ denotes that a complex $y'$ is produced from another complex $y$. In particular, we may associate $y$ with the vector of these coefficients, $(y_1,y_2,\cdots,y_n)^T$, and $y$ and $y'$ are called a {\it reactant} and a {\it product}, respectively.\\
+~~We partition the reaction set $\mathcal{R}$ into two subsets $\mathcal{R}_1$ and $\mathcal{R}_{nl}$:
+\begin{equation}
+\mathcal{R} = \mathcal{R}_1 \cup \mathcal{R}_{nl} \label{eq:partition}
+\end{equation}
+The subset $\mathcal{R}_1$ comprises all first-order catalytic and dissolution steps. A first-order catalytic step from species $X_i$ to $X_j$ is represented as $X_i \to X_j$. A dissolution step, representing the irreversible loss of species $X_i$ into the electrolyte, is denoted by $X_i \to \emptyset$, where $\emptyset$ signifies a state external to the catalytic cycle. The topology of the first-order sub-network $(\mathcal{S}, \mathcal{R}_1)$, excluding dissolution pathways, is described by a weighted directed graph $G := (\mathcal{V}, \mathcal{E})$, where the vertex set $\mathcal{V} = \{X_1, \dots, X_n\}$ corresponds to the intermediate species and the edge set $\mathcal{E} \subset \mathcal{R}_1$ represents the first-order catalytic reactions \cite{Ooka2024JPCL,Komatsu-Ooka}. Throughout the present paper, we assume that the graph $G$ is strongly connected, that is, for any reaction $X_i \to X_j \in \mathcal{E}$ there exist $s$ species $X_{i_p}\,(i_p\in \{1,\ldots,n\},\,p=1,\ldots,s)$ such that all of the reactions $X_j \to X_{i_1},\,X_{i_1} \to X_{i_2},\,\ldots,\,X_{i_s} \to X_i$ are contained in $\mathcal{E}$. We also assume the presence of at least one dissolution reaction ($X_i \to \emptyset$) within the network \cite{Ooka2024JPCL,Komatsu-Ooka}.\\
+~~On the other hand, the subset $\mathcal{R}_{nl}$ incorporates the higher-order nonlinear reactions. For every reaction $y \to y' \in \mathcal{R}_{nl}$, the reactant complex satisfies the following condition:
+\begin{equation}
+\sum_{i=1}^n y_i \ge 2 \label{eq:stoichiometry}
+\end{equation}
+The condition \eqref{eq:stoichiometry} represents reactions involving multiple intermediate species as reactants.\\
+~~Now, let us consider how the amounts of catalytic intermediates change with time. Let us use $x_i \in {\mathbb R}_{\geq 0}$ to denote the amount of species $X_i$, and define a state vector  $x:=(x_1,x_2,\ldots,x_n)^T \in {\mathbb R}_{\geq 0}^n$, where ${\mathbb R}_{\geq 0}$ is the non-negative orthant of ${\mathbb R}$. For a typical electrocatalyst, intermediate species are confined to the two dimensional surface of the solid and therefore each $X_i$ has units of [mol/cm$^2$]. However, units do not influence the mathematical analysis below, and our analysis remains applicable even if some intermediates freely diffuse in 3 dimensional space, such as in the case of homogeneous or enzyme catalysis. Then, the time-evolution of concentrations $x$ can be described by the following ordinary differential equation (ODE) decomposed into a linear term and a nonlinear term \cite{Feinberg}:
+\begin{equation}
+\frac{d}{dt}x(t) = A(E)x(t) + F(x(t)). \label{eq:nonlinear_ode}
+\end{equation}
+~~The linear term of the ODE \eqref{eq:nonlinear_ode} corresponding to the reactions $\mathcal{R}_1$ is given by the coefficient matrix $A(E) := L - D \in \mathbb{R}^{n \times n}$. Here, $L := [ l_{ij}(E) ]_{1 \le i,j \le n} \in {\mathbb R}^{n \times n}$ is the Laplacian matrix of the graph $G$ defined by \cite{Mirzaev-2013,Mirzaev-2015}:
+\begin{align}
+l_{ij}(E) = \left \{
+\begin{array}{ll}
+k_{ji}(E) & ( j \neq i)\\[0.1cm]
+-\sum_{\substack{p=1 \ p \neq i}}^n k_{ip}(E) & (j = i)
+\end{array}\right.
+\quad (i,j = 1,\ldots,n), \label{eq:laplacian}
+\end{align}
+and $D \in {\mathbb R}^{n \times n}$ is the non-zero diagonal matrix:
+\begin{align}
+D:={\rm diag}\left(k_{10}(E), \ldots,k_{n0}(E)\right) \neq O_n, \label{eq:dissolution_matrix}
+\end{align}
+where $O_n \in {\mathbb R}^{n \times n}$ is the matrix of which all components are zero. The parameters $k_{ij}(E)$ represent the rate constants for the first-order reactions $X_i \to X_j$ and $X_i \to \emptyset$. Under potentiostatic control, the relationship between the electrode potential $E$ and each rate constant follows the Butler-Volmer equation \cite{Bard}:
+\begin{equation}
+k_{ij}(E) := k_{ij}^0 \exp(\alpha_{ij} E), \quad i \neq j, \quad i=1,\ldots,n, \quad j=0,\ldots,n \label{eq:BV}
+\end{equation}
+where $k_{ij}^0 \ge 0$ is the pre-exponential factor and $\alpha_{ij} \ge 0$ is the electron transfer coefficient. By these definitions, all off-diagonal elements of $A(E)$ are non-negative ($a_{ij}(E) = k_{ji}(E) \ge 0$ for $i \neq j$), and its column sums satisfy $\sum_{i=1}^n a_{ij}(E) = -k_{j0}(E) \le 0$. Because the graph $G$ is strongly connected and at least one irreversible dissolution pathway is present, the matrix $-A(E)$ is an irreducible M-matrix \cite{Francesco,Hofbauer-2000}. Let $\lambda_1(E), \dots, \lambda_n(E) \in \mathbb{C}$ be the eigenvalues of $A(E)$. According to the spectral properties of such matrices \cite{Hofbauer-2000,Mirzaev-2013,Mirzaev-2015}, it holds that
+\begin{equation}
+0 > \mathrm{Re}(\lambda_1(E)) \ge \mathrm{Re}(\lambda_2(E)) \ge \dots \ge \mathrm{Re}(\lambda_n(E)). \label{eq:eigenvalues}
+\end{equation}
+In particular, $\lambda_1(E)$ is a real and simple root. Furthermore, there exists a strictly positive left eigenvector $\tilde{w} \in \mathbb{R}^n_{> 0}$ satisfying
+\begin{equation}
+\tilde{w}^T A(E) = \lambda_1(E) \tilde{w}^T \label{eq:left_eigenvector}
+\end{equation}
+The nonlinear term $F: \mathbb{R}^n \to \mathbb{R}^n$ of the ODE \eqref{eq:nonlinear_ode} corresponding to the reactions $\mathcal{R}_{nl}$ is formulated as
+\begin{equation}
+F(x) = \sum_{y \to y' \in \mathcal{R}_{nl}} k_{y \to y'} x^y (y' - y), \label{eq:vector_field}
+\end{equation}
+where $k_{y \to y'} > 0$ is the reaction rate constant for each reaction $y \to y' \in \mathcal{R}_{nl}$ and $x^y$ is defined by $x^y :=  x_1^{y_1}x_2^{y_2}\cdots x_n^{y_n}$. \\
+~~From Eq. \eqref{eq:stoichiometry}, every term in \eqref{eq:vector_field} consists of polynomials of degree two or higher. This means that $\Vert{}F(x)\Vert{} = \mathcal{O}(\Vert{}x\Vert{}^2)$ in the neighborhood of the origin, satisfying $F(0) = 0$ and $DF(0) = O$, where $DF(0)$ is the Jacobian matrix of $F$ at the origin. Here, $\Vert{} \cdot \Vert{}$ denotes the Euclidean norm on $\mathbb{R}^n$, and the Landau symbol $\mathcal{O}(\Vert{}x\Vert{}^2)$ indicates that there exists a constant $M>0$ such that $\Vert{}F(x)\Vert{} \le M \Vert{}x\Vert{}^2$ for all $x$ sufficiently close to the origin. Moreover, we assume that for any reaction $y \to y' \in \mathcal{R}_{nl}$, the following condition holds with respect to the left eigenvector $\tilde{w} \in \mathbb{R}^n_{> 0}$ of $A(E)$:
+\begin{equation}
+\tilde{w}^T (y' - y) \le 0. \label{eq:dissipativity}
+\end{equation}
+~~It has been proved that the ODE \eqref{eq:nonlinear_ode} is non-negative (resp. positive). That is, any solution $x(t)$ to \eqref{eq:nonlinear_ode} with an initial value $x(0) \in \mathbb{R}^n_{\geq 0}$ (resp. $x(0) \in \mathbb{R}^n_{> 0}$) remains in $\mathbb{R}^n_{\geq 0}$ (resp. $\mathbb{R}^n_{> 0}$) for all $t \geq 0$, where ${\mathbb R}_{>0}^n$ is the positive orthant of ${\mathbb R}^n$ \cite{chella}. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Characterization of the Lyapunov Characteristic Exponent}\label{sec:lyapunov}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this section, we prove that any solution to the ODE \eqref{eq:nonlinear_ode} globally converges to the origin corresponding to the deactivation state, and the Lyapunov characteristic exponent, which determines the asymptotic deactivation rate of the solution to Eq. \eqref{eq:nonlinear_ode}, is determined by the dominant eigenvalue $\lambda_1(E)$ of the linear term $A(E)$ of Eq. \eqref{eq:nonlinear_ode}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{theo}\label{theo:global_stability}
+For any initial value $x(0) \in \mathbb{R}^n_{\ge 0}$, the solution $x(t)$ globally converges to the origin corresponding to the deactivation state. That is, $\lim_{t \to \infty} \Vert{}x(t)\Vert{} = 0$.
+\end{theo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent{\bf Proof}~~As established in Section 2, there exists a strictly positive left eigenvector $\tilde{w} \in \mathbb{R}^n_{>0}$ corresponding to $\lambda_1(E)$ satisfying Eq.~\eqref{eq:left_eigenvector}. We define a Lyapunov function $V(x) := \tilde{w}^T x$. Since $\tilde{w}_i > 0$ for all $i=1,\ldots,n$, $V(x) \ge 0$ for all $x \in {\mathbb R}_{\geq 0}^n$, and $V(x) = 0$ if and only if $x = 0$. Therefore, from the equivalence of norms, there exist positive constants $c_1, c_2$ such that:
+\begin{equation}
+c_1\Vert{}x\Vert{} \le V(x) \le c_2\Vert{}x\Vert{}, \quad \forall x \in \mathbb{R}^n_{\ge 0} \label{eq:norm_equiv}
+\end{equation}
+Evaluating the time derivative of $V(x)$ along the solution $x(t)$, we can obtain
+\begin{align}
+\frac{d}{dt}V(x(t)) &= \tilde{w}^T \frac{d}{dt}x(t)= \tilde{w}^T (A(E) x(t) + F(x(t))) \nonumber \\[0.2cm]
+&= \tilde{w}^T A(E) x(t) + \tilde{w}^T \sum_{y \to y' \in \mathcal{R}_{nl}} k_{y \to y'}x^y(t) (y' - y)  \nonumber \\[0.2cm]
+&= \lambda_1(E) \tilde{w}^T x(t) + \sum_{y \to y' \in \mathcal{R}_{nl}} k_{y \to y'}x^y(t) \tilde{w}^T (y' - y), \quad \forall t \in [0,+\infty). \label{eq:lyapunov_deriv}
+\end{align}
+From Eq.~\eqref{eq:left_eigenvector}, the condition \eqref{eq:dissipativity} and $k_{y \to y'} x^y \ge 0$ for $x \in \mathbb{R}^n_{\ge 0}$, we obtain the following differential inequality:
+\begin{equation}
+\frac{d}{dt}V(x(t)) \le \lambda_1(E) V(x(t)), \quad \forall t \in [0,+\infty).  \label{eq:lyapunov_inequality}
+\end{equation}
+Since $\lambda_1(E) < 0$ from \eqref{eq:eigenvalues}, it follows from Gr\"{o}nwall's inequality that
+\begin{equation}
+V(x(t)) \le V(x(0)) e^{\lambda_1(E)t}, \quad \forall t \in [0,+\infty).  \label{eq:gronwall}
+\end{equation}
+Taking the limit as $t \to \infty$ in Eq.~\eqref{eq:gronwall}, we have $V(x(t)) \to 0$. Combined with Eq.~\eqref{eq:norm_equiv}, it holds that $\lim_{t \to \infty}\Vert{}x(t)\Vert{} = 0$.  \hfill $\Box$\\[0.2cm]
+~~To quantify the effective deactivation rate, we define the Lyapunov characteristic exponent $\Lambda(E;x(0))$ for a solution $x(t)$ with initial value $x(0)$ by \cite{LawrencePerko}:
+\begin{equation}
+\Lambda(E;x(0)) := \lim_{t \to \infty} \frac{1}{t} \ln \Vert{}x(t)\Vert{} \label{eq:lyapunov_def}
+\end{equation}
+When this limit exists, it ensures that for any arbitrarily small $\eta > 0$, there exists a sufficiently large time $T > 0$ such that the norm is exponentially bounded:
+\begin{equation}
+C_1 e^{(\Lambda(E;x(0)) - \eta)t} \le \Vert{}x(t)\Vert{} \le C_2 e^{(\Lambda(E;x(0)) + \eta)t}, \quad \forall  t > T \label{eq:lyapunov_bound}
+\end{equation}
+where $C_1$ and $C_2$ are positive constants.\\
+~~Based on this definition \eqref{eq:lyapunov_def}, we show the following theorem regarding the equivalence between the deactivation rate of the ODE \eqref{eq:nonlinear_ode} and the dominant eigenvalue $\lambda_1(E)$ of the linear term $A(E)$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{theo}\label{theo:lyapunov_equivalence}For any non-zero initial condition $x(0) \in \mathbb{R}^n_{> 0}$, the Lyapunov characteristic exponent $\Lambda(E;x(0))$ of the ODE \eqref{eq:nonlinear_ode}  is identical to the dominant eigenvalue $\lambda_1(E)$ of the linear term $A(E)$.
+\end{theo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent{\bf Proof}~~From Theorem \ref{theo:global_stability}, it holds that $\lim_{t \to \infty} \Vert{}x(t)\Vert{} = 0$. This guarantees that for any sufficiently small neighborhood $U \subset \mathbb{R}^n$ of the origin, there exists a finite time $T \ge 0$ such that the solution satisfies $x(t) \in U$ for all $t \ge T$. Therefore, it is  sufficient to evaluate the solution $x(t)$ within the domain $U$, because the solution $x(t)$ for $t \in [0, T)$ does not affect the value of $\Lambda(E;x(0))$ which is defined by the limit as $t \to \infty$ in \eqref{eq:lyapunov_def}. By shifting the time origin $t \leftarrow t - T$, we may assume without loss of generality that $x(0) \in U$ and proceed with the analysis for all $t \in [0, +\infty)$.\\
+~~Within the domain $U$, we analyze the ODE \eqref{eq:nonlinear_ode} by reducing it to its normal form. Since the dominant eigenvalue $\lambda_1(E)$ is a simple root as shown in \eqref{eq:eigenvalues}, there exists an invertible matrix $P \in \mathbb{C}^{n \times n}$ such that the coefficient matrix $A(E)$ is transformed into its Jordan normal form $\tilde{A}(E) := P^{-1} A(E) P$. Specifically, $\tilde{A}(E)$ gives a block diagonal structure separating the dominant eigenvalue $\lambda_1(E)$ from the others $\lambda_2(E), \dots, \lambda_n(E)$ \cite{Mirzaev-2013,Mirzaev-2015}:
+\begin{equation}
+\tilde{A}(E) = \begin{pmatrix} \lambda_1(E) & 0 \\ 0 & J(E) \end{pmatrix}, \label{eq:jordan_form}
+\end{equation}
+where $J(E) \in \mathbb{C}^{(n-1) \times (n-1)}$ is the Jordan matrix associated with the remaining eigenvalues $\lambda_2(E), \dots, \lambda_n(E)$, and $0$ denotes the zero matrix of appropriate dimensions (i.e., $1 \times (n-1)$ and $(n-1) \times 1$).  Applying the linear transformation $x = P u$ to the ODE \eqref{eq:nonlinear_ode}, we have
+\begin{equation}
+\frac{d}{dt}u(t) = \tilde{A}(E)u(t) + \tilde{F}(u(t)) \label{eq:u_system}
+\end{equation}
+where $\tilde{F}(u) := P^{-1} F(P u)$ satisfies $\Vert{}\tilde{F}(u)\Vert{} = \mathcal{O}(\Vert{}u\Vert{}^2)$.\\
+~~Next, we introduce a near-identity transformation $u = z + R(z)$ with $\Vert{}R(z)\Vert{} = \mathcal{O}(\Vert{}z\Vert{}^2)$. This transforms the ODE \eqref{eq:u_system} into the Poincar\'e-Dulac normal form \cite{LawrencePerko}:
+\begin{equation}
+\frac{d}{dt}z(t)= \tilde{A}(E)z(t) + N(z(t)). \label{eq:normal_form}
+\end{equation}
+Because of the block structure of $\tilde{A}(E)$ in \eqref{eq:jordan_form}, the linear part of the first component $z_1$ is decoupled from the other components $z_2,\ldots,z_n$. The vector field $N(z)$ consists of resonant monomial terms \cite{LawrencePerko}. That is, a term proportional to $\prod_{i=1}^n z_i^{m_i}$ exists in the $k$-th component $N_k(z)$ if and only if the following resonance condition is satisfied
+\begin{equation}
+\lambda_k(E) = \sum_{i=1}^n m_i \lambda_i(E),\quad k=1,\ldots,n \label{eq:resonance}
+\end{equation}
+where $m_i \in \mathbb{Z}_{\ge 0}\,(i=1,\ldots,n)$ and $\sum_{i=1}^n m_i \ge 2$. \\
+~~We analyze the resonance condition \eqref{eq:resonance} for the component $z_1$, corresponding to the dominant real eigenvalue $\lambda_1(E)$. From \eqref{eq:eigenvalues}, $\lambda_1(E)$ is a negative real value satisfying $\lambda_1(E) \ge \mathrm{Re}(\lambda_i(E))$ for all $i=1,\ldots,n$. Suppose the resonance condition \eqref{eq:resonance} holds for $k=1$. Taking the real part of both sides of Eq. \eqref{eq:resonance}, we obtain
+\begin{align}
+\lambda_1(E) = \sum_{i=1}^n m_i \mathrm{Re}(\lambda_i(E))\le \sum_{i=1}^n m_i \lambda_1(E) = \lambda_1(E) \sum_{i=1}^n m_i \label{eq:res_chain}
+\end{align}
+Since $\sum_{i=1}^n m_i \ge 2$ and $\lambda_1(E) < 0$, it follows that
+\begin{equation}
+\lambda_1(E) \sum_{i=1}^n m_i \le 2\lambda_1(E) \label{eq:res_bound}
+\end{equation}
+Combining \eqref{eq:res_chain} and \eqref{eq:res_bound}, we obtain:
+\begin{equation}
+\lambda_1(E) \le 2\lambda_1(E), \label{eq:contradiction}
+\end{equation}
+which implies that $0 \le \lambda_1(E)$. This contradicts $\lambda_1(E) < 0$. Therefore, the resonance condition \eqref{eq:resonance} for the component $z_1$ is not satisfied. Consequently, it holds that $N_1(z) \equiv 0$. From Eqns. \eqref{eq:jordan_form} and \eqref{eq:normal_form}, the component $z_1$ is given by
+\begin{equation}
+\frac{d}{dt}z_1(t) = \lambda_1(E) z_1(t), \quad \forall t \in [0,+\infty),\label{eq:z1_linear}
+\end{equation}
+which implies that $z_1(t) = z_1(0) e^{\lambda_1(E) t}$ for all $t \in [0,+\infty)$. Note that $z_1(0) \not =0$.\\
+~~For the remaining components $z_j$ ($j = 2,\ldots,n$), let us define the vector $z_{\perp} := (z_2, \dots, z_n)^T$. The ODE for $z_{\perp}$ is described by:
+\begin{equation}
+\frac{d}{dt}z_{\perp}(t) = J(E) z_{\perp}(t) + N_{\perp}(z(t)) \label{eq:z_perp_sys}
+\end{equation}
+By the variation of constants formula, the solution $z_{\perp}(t)$ to the ODE \eqref{eq:z_perp_sys} is written as:
+\begin{equation}
+z_{\perp}(t) = e^{J(E)t} z_{\perp}(0) + \int_0^t e^{J(E)(t-\tau)} N_{\perp}(z(\tau)) d\tau,\quad \forall t \in [0,+\infty), \label{eq:var_constants}
+\end{equation}
+where $N_{\perp}(z):=(N_2(z), \dots, N_n(z))^T$. The maximum real part of the eigenvalues in the Jordan block $J(E)$ is $\mathrm{Re}(\lambda_2(E))$. By properties of matrix exponentials \cite{LawrencePerko}, for any arbitrarily small $\epsilon > 0$, there exists a constant $C_{\epsilon} > 0$ such that
+\begin{equation}
+\Vert{}e^{J(E)t}\Vert{} \le C_{\epsilon} e^{(\mathrm{Re}(\lambda_2(E)) + \epsilon)t}, \quad \forall t \in [0,+\infty). \label{eq:jordan_bound-1}
+\end{equation}
+Furthermore, from the  inequality \eqref{eq:gronwall} and $\Vert{}N_{\perp}(z)\Vert{} = \mathcal{O}(\Vert{}z\Vert{}^2)$, it has been shown that 
+\begin{equation}
+\Vert{}z(t)\Vert{} \le C_0 e^{\lambda_1(E)t},\quad \forall t \in [0,+\infty)\label{eq:jordan_bound-2}
+\end{equation}
+for some constant $C_0 > 0$. In addition, there exists a constant $K' > 0$ such that 
+\begin{equation}
+\Vert{}N_{\perp}(z(t))\Vert{} \le K' e^{2\lambda_1(E)t},\quad \forall t \in [0,+\infty).\label{eq:jordan_bound-3}
+\end{equation}
+Taking the norm of \eqref{eq:var_constants} and applying these bounds \eqref{eq:jordan_bound-1}--\eqref{eq:jordan_bound-3}, we obtain
+\begin{equation}
+\Vert{}z_{\perp}(t)\Vert{} \le C_{\epsilon} e^{(\mathrm{Re}(\lambda_2(E)) + \epsilon)t} \Vert{}z_{\perp}(0)\Vert{} + \int_0^t C_{\epsilon} e^{(\mathrm{Re}(\lambda_2(E)) + \epsilon)(t-\tau)} K' e^{2\lambda_1(E)\tau} d\tau, \quad \forall t \in [0,+\infty). \label{eq:integral_bound}
+\end{equation}
+Hence, we can show that there exists a constant $M > 0$ such that
+\begin{equation}
+\Vert{}z_{\perp}(t)\Vert{} \le M e^{(\mathrm{Re}(\lambda_2(E)) + \epsilon)t} + M e^{2\lambda_1(E)t}, \quad \forall t \in [0,+\infty). \label{eq:zj_bound}
+\end{equation}
+Since $\mathrm{Re}(\lambda_i(E)) \le \lambda_1(E)\,(i=2,\ldots,n)$, for any $\epsilon > 0$, there exists a constant $M > 0$ such that:
+\begin{equation}
+|z_j(t)| \le M e^{(\mathrm{Re}(\lambda_2(E)) + \epsilon)t} + M e^{2\lambda_1(E)t}, \quad \forall t \in [0,+\infty). \label{eq:zj_bound}
+\end{equation}
+Since $\mathrm{Re}(\lambda_2(E)) < \lambda_1(E)$ due to Eq.  \eqref{eq:eigenvalues}, we can choose $\epsilon$ sufficiently small such that $\mathrm{Re}(\lambda_2(E)) + \epsilon < \lambda_1(E)$. Using $\vert{}z_1(t)\vert{} = \vert{}z_1(0)\vert{} e^{\lambda_1(E) t}$ from \eqref{eq:z1_linear}, we can evaluate the ratio of their norms:
+\begin{align}
+\frac{\Vert{}z_{\perp}(t)\Vert{}}{|z_1(t)|} &\le \frac{M e^{(\mathrm{Re}(\lambda_2(E)) + \epsilon)t} + M e^{2\lambda_1(E)t}}{|z_1(0)| e^{\lambda_1(E) t}} \nonumber \\[0.2cm]
+&= \frac{M}{|z_1(0)|} \left( e^{(\mathrm{Re}(\lambda_2(E)) + \epsilon - \lambda_1(E))t} + e^{\lambda_1(E)t} \right), \quad \forall t \in [0,+\infty). \label{eq:zj_decay_ratio}
+\end{align}
+Since $\lambda_1(E) < 0$ and $\mathrm{Re}(\lambda_2(E)) + \epsilon - \lambda_1(E) < 0$, it follows that:
+\begin{equation}
+\lim_{t \to \infty} \frac{\Vert{}z_{\perp}(t)\Vert{}}{|z_1(t)|} = 0 \label{eq:zj_limit}
+\end{equation}
+~~Returning to the original variables $x(t)$ via $x(t) = P u(t) = P(z(t) + R(z(t)))$, we consider the norm $\Vert{}x(t)\Vert{}$. First, for the variables $z(t) = (z_1(t), z_{\perp}^T(t))^T$, we have:
+\begin{equation}
+\Vert{}z(t)\Vert{} = |z_1(t)| \sqrt{1 + \left( \frac{\Vert{}z_{\perp}(t)\Vert{}}{|z_1(t)|} \right)^2}, \quad \forall t \in [0,+\infty). \label{eq:z_norm_ratio}
+\end{equation}
+From Eq. \eqref{eq:zj_limit}, the ratio $\Vert{}z_{\perp}(t)\Vert{}/\vert{}z_1(t)\vert{} \to 0$ as $t \to \infty$. This guarantees that for any small $\epsilon_1 > 0$, there exists $T_1 > 0$ such that:
+\begin{equation}
+\vert{}z_1(t)\vert{} \le \Vert{}z(t)\Vert{} \le (1 + \epsilon_1)\vert{}z_1(t)\vert{}, \quad \forall t > T_1. \label{eq:z_bound_strict}
+\end{equation}
+Furthermore, since $\Vert{}R(z)\Vert{} = \mathcal{O}(\Vert{}z\Vert{}^2)$ and $\lim_{t \to \infty} \Vert{}z(t)\Vert{} = 0$, the following limit holds:
+\begin{equation}
+\lim_{t \to \infty} \frac{\Vert{}z(t) + R(z(t))\Vert{}}{\Vert{}z(t)\Vert{}} = 1. \label{eq:u_z_limit}
+\end{equation}
+Therefore, for any small $\epsilon_2 \in (0, 1)$, there exists $T_2 > 0$ such that the norm of $u(t) = z(t) + R(z(t))$ is strictly bounded by:
+\begin{equation}
+(1 - \epsilon_2)\Vert{}z(t)\Vert{} \le \Vert{}u(t)\Vert{} \le (1 + \epsilon_2)\Vert{}z(t)\Vert{}, \quad \forall t > T_2. \label{eq:u_bound_strict}
+\end{equation}
+~~Finally, because $x(t) = P u(t)$ with an invertible matrix $P$, there exist positive constants $c_m, C_M$ such that 
+\begin{equation}
+c_m \Vert{}u(t)\Vert{} \le \Vert{}x(t)\Vert{} \le C_M \Vert{}u(t)\Vert{}. \label{equivalence-norm}
+\end{equation}
+By setting $T' = \max\{T_1, T_2\}$ and chaining these inequalities \eqref{eq:z_bound_strict}--\eqref{equivalence-norm} with $\vert{}z_1(t)\vert{} = \vert{}z_1(0)\vert{}e^{\lambda_1(E)t}$, we see that for any arbitrarily small $\delta \in (0, 1)$, we can choose $\epsilon_1$ and $\epsilon_2$ such that:
+\begin{equation}
+c_m (1 - \delta) |z_1(0)| e^{\lambda_1(E) t} \le \Vert{}x(t)\Vert{} \le C_M (1 + \delta) |z_1(0)| e^{\lambda_1(E) t},\quad \forall t > T'. \label{eq:x_asymp}
+\end{equation}
+Substituting Eq. \eqref{eq:x_asymp} into the Lyapunov characteristic exponent \eqref{eq:lyapunov_def} and taking the  logarithm, we obtain
+\begin{equation}
+\lim_{t \to \infty} \frac{\ln \left( c_m (1 - \delta) |z_1(0)| \right)}{t} + \lambda_1(E) \le \Lambda(E; x(0)) \le \lim_{t \to \infty} \frac{\ln \left( C_M (1 + \delta) |z_1(0)| \right)}{t} + \lambda_1(E) \label{eq:squeeze}
+\end{equation}
+Since it is clear that
+\begin{equation}
+\lim_{t \to \infty} \frac{\ln \left( c_m (1 - \delta) |z_1(0)| \right)}{t} =\lim_{t \to \infty} \frac{\ln \left( C_M (1 + \delta) |z_1(0)| \right)}{t}=0,
+\end{equation}
+we see from \eqref{eq:squeeze} that
+\begin{equation}
+\Lambda(E;x(0)) = \lambda_1(E). \label{eq:lyapunov_final}
+\end{equation}
+~~This completes the proof. \hfill $\Box$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Estimation of Deactivation Rates under Potentiostatic Conditions}\label{sec:classification}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~Theorem \ref{theo:lyapunov_equivalence} shows that the deactivation rate of the ODE \eqref{eq:nonlinear_ode} given by the Lyapunov characteristic exponent $\Lambda(E;x(0))$ is identical to the dominant eigenvalue $\lambda_1(E)$ of the linear term $A(E)$. Based on this equivalence, we define the deactivation regimes for the ODE \eqref{eq:nonlinear_ode} in the limit of $\Lambda(E;x(0))$ as the potential $E \to +\infty$ \cite{Komatsu-Ooka}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{defi}\label{def:regimes}~The qualitative behaviour of the deactivation rate $\Lambda(E;x(0))(=\lambda_1(E))$ for the non-linear chemical reaction network undergoing dissolution as the potential $E \to +\infty$ can be decomposed into three types:\\[0.1cm] \noindent
+(i)~If $\lim_{E \to +\infty}\Lambda(E;x(0)) = -\infty$, the deactivation rate is said to be accelerated with respect to the potential $E$.\\[0.1cm] \noindent
+(ii)~If $\lim_{E \to +\infty}\Lambda(E;x(0)) = 0$, the deactivation rate is said to be decelerated with respect to the potential $E$.\\[0.1cm] \noindent
+(iii)~If there exists a negative constant ${\overline \lambda}_1 \in (-\infty,0)$ such that $\lim_{E \to +\infty}\Lambda(E;x(0)) = {\overline \lambda}_1$, the deactivation rate is said to be constant with respect to the potential $E$.\hfill $\Box$
+\end{defi}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~Before classifying these asymptotic behaviors, we characterize the algebraic structure of the coefficients of the characteristic polynomial of the matrix $A(E)$ given by:
+\begin{equation}
+f(\lambda) := \det(\lambda I_n - A(E)) = \sum_{i=0}^n a_i(E) \lambda^{n-i}, \quad \lambda \in \mathbb{C} \label{eq:char_poly}
+\end{equation}
+where $a_0(E) \equiv 1$, and from the Routh-Hurwitz Theorem \cite{Hassan-2002}, each coefficient $a_i(E)$ is a positive function with respect to $E > 0$ because the real parts of all roots of \eqref{eq:char_poly} are negative.\\
+~~Let $G' = (\mathcal{V}', \mathcal{E}')$ be an augmented directed graph, where the vertex set $\mathcal{V}' = \{X_1, \dots, X_n\} \cup \{\emptyset\}$ incorporates the node representing a state external to the catalytic cycle, and the edge set $\mathcal{E}'$ contains all internal catalytic reactions in $\mathcal{E}$ as well as the dissolution pathways $X_k \to \emptyset$. In accordance with graph-theoretic definitions for Laplacian dynamics \cite{Mirzaev-2013,Mirzaev-2015}, a subgraph $T$ of $G'$ is called a directed tree if it is connected and acyclic as an undirected graph. Furthermore, $T$ is said to be rooted at a vertex $v \in \mathcal{V}'$ if $v$ is the only vertex in $T$ with no edge leaving it, which implies that every other vertex in $T$ has exactly one outgoing edge, thereby forming a directed path from any vertex in $T$ to the root $v$. An isolated single vertex with no edges trivially satisfies this condition and is considered a valid tree rooted at itself.\\
+~~A directed forest $F$ on $G'$ is defined as a subgraph whose connected components are mutually disjoint directed trees. A spanning directed forest is one that contains all vertices of the graph $G'$. Let $\mathfrak{F}_i$ be the set of all spanning directed forests on $G'$ that comprise exactly $n-i+1$ trees. This satisfies the topological condition that exactly one tree is rooted at the dissolution sink $\emptyset$, while the remaining $n-i$ trees are rooted at distinct vertices chosen from $\{X_1, \dots, X_n\}$. Since the augmented graph $G'$ contains $n+1$ vertices and any forest $F \in \mathfrak{F}_i$ consists of $n-i+1$ trees, every forest in $\mathfrak{F}_i$ contains exactly $(n+1) - (n-i+1) = i$ edges.\\
+~~According to the All Minors Matrix Tree Theorem \cite{Chaiken1982}, each coefficient $a_i(E)$ enumerates the total weight of the spanning directed forests in $\mathfrak{F}_i$:
+\begin{equation}
+a_i(E) = \sum_{F \in \mathfrak{F}i} W(F) \label{eq:tree_theorem}
+\end{equation}
+Let the weight of a directed forest $F$, denoted as $W(F)$, be the product of the weights of its constituent edges. Under the assumption of Butler-Volmer kinetics \eqref{eq:BV}, the weight of each edge $e$ is given by $k_e(E) = k_e^0 \exp(\alpha_e E)$. Therefore, the weight of the forest $F$, which consists of the product of exactly $i$ edge weights, can be calculated as follows:
+\begin{equation}
+W(F) = \prod{e \in F} k_e(E) = \prod_{e \in F} k_e^0 \exp(\alpha_e E) = \left(\prod_{e \in F} k_e^0\right) \exp\left(\sum_{e \in F} \alpha_e E\right)
+\end{equation}
+By defining the constant $C_F := \prod_{e \in F} k_e^0 > 0$ and the exponent sum $\gamma_F := \sum_{e \in F} \alpha_e$ (which corresponds to the sum of the electron transfer coefficients of the $i$ edges in $F$), the weight of the forest is expressed as $W(F) = C_F \exp(\gamma_F E)$. Consequently, each coefficient $a_i(E)$ is expressed as a finite sum of exponential functions:
+\begin{equation}
+a_i(E) = \sum_{F \in \mathfrak{F}_i} C_F \exp(\gamma_F E) \label{eq:coefficients}
+\end{equation}
+~~By applying the graph-theoretic representation of the polynomial coefficients, we establish the necessary and sufficient conditions for the deactivation regimes of the ODE \eqref{eq:nonlinear_ode} based on the network topology.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{theo}\label{theo:nonlinear_classification}~For the ODE \eqref{eq:nonlinear_ode} defined on a strongly connected graph $G$ with at least one dissolution pathway, let $\mathfrak{F}_i$ be the set of spanning directed forests on the augmented graph $G'$ comprising $n-i+1$ trees. Let $\gamma_F := \sum_{e \in F} \alpha_e$ be the sum of the electron transfer coefficients of the edges in a forest $F$. Define the maximum exponent for the forest set $\mathfrak{F}_i$ as:
+\begin{equation}
+\gamma_{i, \max} := \max_{F \in \mathfrak{F}_i} \gamma_F, \quad i=1,\ldots,n.
+\end{equation}
+Then, the asymptotic deactivation regimes of $\Lambda(E;x(0))$ as $E \to +\infty$ are classified as follows:\\[0.1cm] \noindent
+(i)~The deactivation rate is accelerated if and only if $\gamma_{n, \max} > \gamma_{n-1, \max}$.\\[0.1cm] \noindent
+(ii)~The deactivation rate is decelerated if and only if $\gamma_{n, \max} < \gamma_{n-1, \max}$.\\[0.1cm] \noindent
+(iii)~The deactivation rate is constant if and only if $\gamma_{n, \max} = \gamma_{n-1, \max}$.
+\end{theo}
+\noindent
+{\bf Proof}~~From Theorem 3.1 in \cite{Komatsu-Ooka}, the asymptotic behavior of the dominant eigenvalue $\lambda_1(E)$ of the linear term $A(E)$ as $E \to +\infty$ is uniquely determined by the limit of the ratio $a_{n-1}(E)/a_n(E)$. Specifically, the following three conditions have been  shown\\[0.1cm] \noindent
+(i)~$\lim_{E \to +\infty}\lambda_1(E) = -\infty$ if the limit holds that:
+\begin{equation}
+\lim_{E \to +\infty}\frac{a_{n-1}(E)}{a_n(E)} = 0.\label{limit0}
+\end{equation}
+\noindent
+(ii)~$\lim_{E \to +\infty}\lambda_1(E) = 0$ if the limit holds that:
+\begin{equation}
+\lim_{E \to +\infty}\frac{a_{n-1}(E)}{a_n(E)} = +\infty.\label{limitinfty}
+\end{equation}
+\noindent
+(iii)~There exists a negative constant ${\overline \lambda}_1 \in (-\infty, 0)$ such that $\lim_{E \to +\infty}\lambda_1(E) = {\overline \lambda}_1$ if the finite limit exists:
+\begin{equation}
+\lim_{E \to +\infty}\frac{a_{n-1}(E)}{a_n(E)} \in (0, +\infty).\label{limitconstant}
+\end{equation}
+By substituting the graph-theoretic representation \eqref{eq:coefficients}, the ratio is given by:
+\begin{equation}
+\frac{a_{n-1}(E)}{a_n(E)} = \frac{\sum_{F \in \mathfrak{F}_{n-1}} C_F \exp(\gamma_F E)}{\sum_{F \in \mathfrak{F}_n} C_F \exp(\gamma_F E)}.\label{anan-1}
+\end{equation}
+Because all coefficients $C_F$ are spositive constants, the asymptotic behavior of this ratio as $E \to +\infty$ is entirely dominated by the terms with the maximum exponents in the numerator $\gamma_{n-1, \max}$ and the denominator $\gamma_{n, \max}$. Thus, by evaluating the limit \eqref{anan-1} and using $\Lambda(E;x(0)) = \lambda_1(E)$, we obtain the corresponding three regimes:\\[0.1cm] \noindent
+(i)~If $\gamma_{n, \max} > \gamma_{n-1, \max}$, we have Eq. \eqref{limit0}, which implies that  $\lim_{E \to +\infty}\Lambda(E;x(0)) = -\infty$.\\[0.1cm] \noindent
+(ii)~If $\gamma_{n, \max} < \gamma_{n-1, \max}$, we have Eq. \eqref{limitinfty}. This means that $\lim_{E \to +\infty}\Lambda(E;x(0)) = 0$.\\[0.1cm] \noindent
+(iii)~If $\gamma_{n, \max} = \gamma_{n-1, \max}$, we obtain Eq. \eqref{limitconstant}, which implies that there exists a negative constant ${\overline \lambda}_1 \in (-\infty, 0)$ such that $\lim_{E \to +\infty}\Lambda(E;x(0)) = {\overline \lambda}_1$.\\[0.2cm]
+This completes the proof. \hfill $\Box$\\[0.2cm]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~Based on the graph-theoretic representation, we first derive an upper bound for the difference between the maximum exponents $\gamma_{n, \max}$ and $\gamma_{n-1, \max}$. This result provides a sufficient condition for the deactivation rate to not accelerate.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{coll}~For the ODE \eqref{eq:nonlinear_ode} defined on a strongly connected graph $G$ with at least one dissolution pathway, let $F_n^* \in \mathfrak{F}_n$ be the tree forest corresponding to the maximum exponent $\gamma_{n, \max}$. The following inequality holds :
+\begin{equation}
+\gamma_{n, \max} - \gamma_{n-1, \max} \le \min_{e \in F_n^*} \alpha_e. \label{eq:universal_bound}
+\end{equation}
+Moreover, if $F_n^*$ contains at least one reaction step $e$ such that $\alpha_e = 0$, then $\gamma_{n, \max} \le \gamma_{n-1, \max}$. This means that the deactivation rate is not accelerated, that is, $\lim_{E \to +\infty}\Lambda(E;x(0)) \not = -\infty$.
+\end{coll}
+\noindent
+{\bf Proof}~~Let $F_n^* \in \mathfrak{F}_n$ be the spanning directed forest. By the definition of a directed tree, every node in $F_n^*$ except the root $\emptyset$ has an out-degree of exactly $1$. We select an arbitrary edge $e \in F_n^*$. By deleting this single edge $e$ from $F_n^*$, the subgraph $F_{n-1} := F_n^* \setminus \{e\}$ is separated into two disjoint directed trees: one rooted at $\emptyset$, and the other rooted at the tail node of the deleted edge $e$. Therefore, by definition, $F_{n-1}$ is a spanning directed forest comprising 2 trees, which guarantees $F_{n-1} \in \mathfrak{F}_{n-1}$. The exponent sum of this forest $F_{n-1}$ is given by
+\begin{equation}
+\gamma_{F_{n-1}} = \gamma_{F_n^*} - \alpha_e = \gamma_{n, \max} - \alpha_e.
+\end{equation}
+Because $\gamma_{n-1, \max}$ is defined as the maximum exponent over all forests in $\mathfrak{F}_{n-1}$, we see that
+\begin{equation}
+\gamma_{n-1, \max} \ge \gamma_{F_{n-1}} = \gamma_{n, \max} - \alpha_e.
+\end{equation}
+Rearranging the inequality, we obtain
+\begin{equation}
+\gamma_{n, \max} - \gamma_{n-1, \max} \le \alpha_e.
+\end{equation}
+Since this inequality holds for any arbitrarily chosen edge $e \in F_n^*$, it holds for the edge with the minimum electron transfer coefficient $\alpha_e$. Thus, we obtain the bound \eqref{eq:universal_bound}. Furthermore, if there exists at least one reaction step in $F_n^*$ such that its electron transfer coefficient is $\alpha_{\tilde e} = 0$, by substituting $\min_{e \in F_n^*} \alpha_e \le \alpha_{\tilde e} = 0$ into \eqref{eq:universal_bound}, we have $\gamma_{n, \max} - \gamma_{n-1, \max} \le 0$. \\
+This completes the proof. \hfill $\Box$\\[0.2cm]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~Applying this result to the dissolution pathways, we show that the deactivation rate is not accelerated if all dissolution steps are potential-independent.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{coll}~For the ODE \eqref{eq:nonlinear_ode} defined on a strongly connected graph $G$ with at least one dissolution pathway, suppose that $\alpha_d = 0$ for all dissolution edges $d$. Then, $\gamma_{n, \max} \le \gamma_{n-1, \max}$. That is, the deactivation rate is not accelerated, that is, $\lim_{E \to +\infty}\Lambda(E;x(0)) \not = -\infty$.
+\end{coll}
+\noindent
+{\bf Proof}~~Let $F_n^* \in \mathfrak{F}_n$ be the spanning directed forest corresponding to the maximum exponent $\gamma_{n, \max}$. By definition, $F_n^*$ consists of exactly one tree rooted at the dissolution sink $\emptyset$. This implies that $F_n^*$ must contain at least one dissolution edge. We select an arbitrary dissolution edge $e_d$ in $F_n^*$. By deleting this single edge $e_d$ from $F_n^*$, the subgraph $F_{n-1} := F_n^* \setminus \{e_d\}$ is separated into two disjoint directed trees: one rooted at $\emptyset$, and the other rooted at the tail node of the deleted edge $e_d$. Therefore, by definition, $F_{n-1}$ is a spanning directed forest comprising 2 trees, which guarantees $F_{n-1} \in \mathfrak{F}_{n-1}$. The exponent sum of this forest $F_{n-1}$ is given by:
+\begin{equation}
+\gamma_{F_{n-1}} = \gamma_{F_n^*} - \alpha_{e_d} = \gamma_{n, \max} - \alpha_{e_d}.
+\end{equation}
+Since, by the assumption, we have $\alpha_{e_d} = 0$, we obtain $\gamma_{F_{n-1}} = \gamma_{n, \max}$. Because $\gamma_{n-1, \max}$ is defined as the maximum exponent over all forests in $\mathfrak{F}_{n-1}$, it follows that
+\begin{equation}
+\gamma_{n-1, \max} \ge \gamma_{F_{n-1}} = \gamma_{n, \max},
+\end{equation}
+which implies that
+\begin{equation}
+\gamma_{n, \max} - \gamma_{n-1, \max} \le 0.
+\end{equation}
+By Theorem \ref{theo:nonlinear_classification}, this inequality implies that $\lim_{E \to +\infty}\Lambda(E;x(0)) \not = -\infty$. \\
+This completes the proof. \hfill $\Box$\\[0.2cm]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~Conversely, we provide a sufficient condition for the acceleration of the deactivation rate, which occurs when all internal catalytic steps share the same uniform potential sensitivity.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{coll}~For the ODE \eqref{eq:nonlinear_ode} defined on a strongly connected graph $G$ with at least one dissolution pathway, suppose that $\alpha_e = \alpha_{int} > 0$ for all $e \in \mathcal{E}$, and that $\alpha_d > 0$ for all dissolution pathways $d$. Then, the deactivation rate is accelerated, that is, $\lim_{E \to +\infty}\Lambda(E;x(0)) = -\infty$.
+\end{coll}
+\noindent
+{\bf Proof}~~Let $F_{n-1}^* \in \mathfrak{F}_{n-1}$ be a spanning directed forest corresponding to the maximum exponent $\gamma_{n-1, \max}$. By definition, $F_{n-1}^*$ consists of two disjoint directed trees: one rooted at the dissolution sink $\emptyset$, denoted by $T_\emptyset$, and the other rooted at an intermediate species $X_k$, denoted by $T_k$. Because the graph $G$ is strongly connected, there exists a directed path from $X_k$ to $\emptyset$. Let $e_{add} = X_k \to X_j$ be the first edge on the shortest such path.\\
+\noindent
+~~If $X_j \in T_\emptyset$, the addition of $e_{add}$ to $F_{n-1}^*$ directly connects $T_k$ to $T_\emptyset$ without creating any cycles. The graph is a spanning directed forest $F_n \in \mathfrak{F}_n$ comprising one tree. Its exponent sum is $\gamma_{F_n} = \gamma_{n-1, \max} + \alpha_{e_{add}}$. Since $\alpha_{e_{add}} > 0$ by assumption, we obtain $\gamma_{n, \max} \ge \gamma_{F_n} > \gamma_{n-1, \max}$.\\
+\noindent
+~~If $X_j \in T_k$, the addition of $e_{add}$ creates a unique cycle within $T_k$. In order to restore a 2-tree forest, we remove the original outgoing edge $e_{remove}$ of node $X_j$ in $T_k$. Since both $e_{add}$ and $e_{remove}$ are edges in $\mathcal{E}$, they share the same electron transfer coefficient: $\alpha_{e_{add}} = \alpha_{e_{remove}} = \alpha_{int}$. Thus, the new graph is a valid forest $F_{n-1}' \in \mathfrak{F}_{n-1}$ rooted at the tail of $e_{remove}$, and its exponent sum remains unchanged:
+\begin{equation}
+\gamma_{F_{n-1}'} = \gamma_{n-1, \max} + \alpha_{e_{add}} - \alpha_{e_{remove}} = \gamma_{n-1, \max}.
+\end{equation}
+~~By recursively applying this edge-shifting operation, the root of the second tree moves along the shortest path toward $T_\emptyset$ while maintaining the maximal weight $\gamma_{n-1, \max}$. Because the path length is finite, this process must terminate in the first case, where an edge $e^*$ connecting to $T_\emptyset$ is added. This guarantees the existence of a forest $F_n \in \mathfrak{F}_n$ with $\gamma_{F_n} = \gamma_{n-1, \max} + \alpha_{e^*}$. Since $\alpha_{e^*} \ge \min(\alpha_{int}, \alpha_d) > 0$, we conclude that:
+\begin{equation}
+\gamma_{n, \max} \ge \gamma_{F_n} > \gamma_{n-1, \max}.
+\end{equation}
+~~By Theorem \ref{theo:nonlinear_classification}, this inequality implies that $\lim_{E \to +\infty}\Lambda(E;x(0)) = -\infty$.\\
+~~This completes the proof. \hfill $\Box$ \\[0.2cm]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~We provide a sufficient condition for the deceleration of the deactivation rate in networks possessing a single dissolution pathway.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{coll}~For the ODE \eqref{eq:nonlinear_ode} defined on a strongly connected graph $G$ with exactly one dissolution pathway $e_d$ from an intermediate species $X_k$, let $F_n^* \in \mathfrak{F}_n$ be the spanning directed forest corresponding to the maximum exponent $\gamma_{n, \max}$, and the subgraph $T_k^* := F_n^* \setminus \{e_d\}$ be a directed tree of the species rooted at $X_k$. Suppose there exists an outgoing edge $e_{out} \in {\mathcal E}$ from $X_k$ such that its addition to $T_k^*$ creates a cycle $C$, and there exists an edge $e_{remove} \in C$ satisfying
+\begin{equation}
+\alpha_d - \alpha_{e_{out}} + \alpha_{e_{remove}} < 0.
+\end{equation}
+Then, the deactivation rate is decelerated, that is, $\lim_{E \to +\infty}\Lambda(E;x(0)) = 0$.
+\end{coll}
+\noindent
+{\bf Proof}~~Let $F_n^* \in \mathfrak{F}_n$ be the spanning directed forest corresponding to the maximum exponent $\gamma_{n, \max}$. Because $e_d$ is the edge connecting the species to the dissolution sink $\emptyset$, $F_n^*$ must contain $e_d$. Thus, its exponent sum is given by $\gamma_{n, \max} = \gamma_{T_k^*} + \alpha_d$, where $\gamma_{T_k^*}$ is the exponent sum of the tree $T_k^*$ rooted at $X_k$.\\
+\noindent
+~~By adding the edge $e_{out}$ to $T_k^*$, a unique cycle $C$ is created. In order to break this cycle and form a new tree, we remove the edge $e_{remove} \in C$. This operation gives a new spanning tree $T_{new}$ rooted at the tail node of $e_{remove}$. By pairing $T_{new}$ with the isolated root node $\emptyset$, we construct a spanning directed forest $F_{n-1} \in \mathfrak{F}_{n-1}$ comprising 2 trees. The exponent sum of this forest $F_{n-1}$ is given by
+\begin{equation}
+\gamma_{F_{n-1}} = \gamma_{T_k^*} + \alpha_{e_{out}} - \alpha_{e_{remove}}.
+\end{equation}
+Because $\gamma_{n-1, \max}$ is defined as the maximum exponent over all forests in $\mathfrak{F}_{n-1}$, we see that
+\begin{equation}
+\gamma_{n-1, \max} \ge \gamma_{F_{n-1}} = \gamma_{T_k^*} + \alpha_{e_{out}} - \alpha_{e_{remove}}.
+\end{equation}
+By the assumption $\alpha_d - \alpha_{e_{out}} + \alpha_{e_{remove}} < 0$, we have $\alpha_d < \alpha_{e_{out}} - \alpha_{e_{remove}}$. Adding $\gamma_{T_k^*}$ to both sides of this inequality, it follows that
+\begin{equation}
+\gamma_{n, \max} = \gamma_{T_k^*} + \alpha_d < \gamma_{T_k^*} + \alpha_{e_{out}} - \alpha_{e_{remove}} \le \gamma_{n-1, \max}.
+\end{equation}
+Thus, we obtain the inequality $\gamma_{n, \max} < \gamma_{n-1, \max}$. By Theorem \ref{theo:nonlinear_classification}, the inequality implies that $\lim_{E \to +\infty}\Lambda(E;x(0)) = 0$.\\
+~~This completes the proof. \hfill $\Box$\\[0.2cm]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~We establish a condition for accelerated deactivation in networks with a single dissolution pathway
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{coll}~For the ODE \eqref{eq:nonlinear_ode} defined on a strongly connected graph $G$ with exactly one dissolution pathway $e_d$ originating from an intermediate species $X_k$, suppose that $\alpha_e > 0$ for all $e \in \mathcal{E}$. Let $F_n^* \in \mathfrak{F}_n$ be the spanning directed forest corresponding to the maximum exponent $\gamma_{n, \max}$. Here, its exponent sum is given by $\gamma_{n, \max} = \gamma_{T_k^*} + \alpha_d$, where $\gamma_{T_k^*}$ is the exponent sum of the tree $T_k^* := F_n^* \setminus \{e_d\}$ on $\mathcal{E}$. Furthermore, let $\gamma_{\mathcal{E}, \max}$ be the maximum exponent sum among all 2-tree forests $F \in \mathfrak{F}_{n-1}$ that do not contain $e_d$ (i.e., $F \subset \mathcal{E}$), and let $\gamma_{\mathcal{E}, 2}^*$ be the maximum exponent sum on $\mathcal{E}$ among all 2-tree forests $F \in \mathfrak{F}_{n-1}$ that contain $e_d$. Suppose that $\gamma_{T_k^*} > \gamma_{\mathcal{E}, 2}^*$. If the dissolution potential sensitivity $\alpha_d$ satisfies
+\begin{equation}
+\alpha_d > \gamma_{\mathcal{E}, \max} - \gamma_{T_k^*},
+\end{equation}
+then the deactivation rate is accelerated, that is, $\lim_{E \to +\infty}\Lambda(E;x(0)) = -\infty$.
+\end{coll}
+\noindent
+{\bf Proof}~~Let $F_n^* \in \mathfrak{F}_n$ be the spanning directed forest corresponding to the maximum exponent $\gamma_{n, \max}$. Because $e_d$ is the only edge connecting the species to the sink $\emptyset$, $F_n^*$ contains $e_d$. Thus, its exponent sum is $\gamma_{n, \max} = \gamma_{T_k^*} + \alpha_d$.\\
+~~We evaluate the maximum exponent $\gamma_{n-1, \max}$ for forests $F_{n-1} \in \mathfrak{F}_{n-1}$ comprising 2 trees. We classify $F_{n-1}$ into two cases based on whether it contains the dissolution edge $e_d$.\\
+~~If $F_{n-1}$ does not contain $e_d$, the tree rooted at $\emptyset$ is the isolated node $\emptyset$, and the remaining edges form a spanning directed tree on $\mathcal{E}$. By definition, the maximum exponent sum for this first case is $\gamma_{\mathcal{E}, \max}$.\\
+~~If $F_{n-1}$ contains $e_d$, its subgraph on $\mathcal{E}$ forms a 2-tree forest with one tree rooted at $X_k$. By definition, the maximum exponent sum on $\mathcal{E}$ for this second case is $\gamma_{\mathcal{E}, 2}^*$. Thus, the total exponent sum of this second case is bounded by $\gamma_{\mathcal{E}, 2}^* + \alpha_d$. Since $\gamma_{T_k^*} > \gamma_{\mathcal{E}, 2}^*$ by assumption, this total exponent sum is less than $\gamma_{T_k^*} + \alpha_d = \gamma_{n, \max}$.\\
+~~Therefore, the condition $\gamma_{n-1, \max} \geq \gamma_{n, \max}$ can occur through the first case. To guarantee the inequality $\gamma_{n, \max} > \gamma_{n-1, \max}$, it is sufficient to require that
+\begin{equation}
+\gamma_{T_k^*} + \alpha_d > \gamma_{\mathcal{E}, \max},
+\end{equation}
+which implies that $\alpha_d > \gamma_{\mathcal{E}, \max} - \gamma_{T_k^*}$. By Theorem \ref{theo:nonlinear_classification}, it follows that $\lim_{E \to +\infty}\Lambda(E;x(0)) = -\infty$.\\
+~~This completes the proof. \hfill $\Box$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications}
+~~
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+~~
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Acknowledgments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~~
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{99}
+\bibitem{Sabatier1913Book}
+P. Sabatier, La Catalyse en Chimie Organique, Librairie Polytechnique B\'eranger, Paris (1913).
+%
+\bibitem{Zeradjanin}
+A. Zeradjanin, The era of stable electrocatalysis, Nature Catalysis, 6, pp. 458--459 (2023).
+%
+\bibitem{Geiger2018NCat}
+S. Geiger, O. Kasian, M. Ledendecker, E. Pizzutilo, A. M. Mingers, W. T. Fu, O. Diaz-Morales, Z. Li, T. Oellers, L. Fruchter, A. Ludwig, K. J. J. Mayrhofer, M. T. M. Koper and S. Cherevko, The stability number as a metric for electrocatalyst stability benchmarking, Nature Catalysis, 1, pp. 508--515 (2018).
+%
+\bibitem{Li2019Angew}
+A. Li, H. Ooka, N. Bonnet, T. Hayashi, Y. Sun, Q. Jiang, C. Li, H. Han and  R. Nakamura, Stable potential windows for long-term electrocatalysis by manganese oxides under acidic conditions, Angewandte Chemie International Edition, 58, pp. 5054--5058 (2019).
+
+\bibitem{Zeradjanin2016Electroanalysis}
+A. R. Zeradjanin, J.-P. Grote, G. Polymeros, K. J. J. Mayrhofer, A critical review on hydrogen evolution electrocatalysis: re-exploring the volcano-relationship, Electroanalysis, 28, pp. 2256--2269 (2016).
+%
+\bibitem{Ooka2019JPCL}
+H. Ooka and R. Nakamura, Shift of the optimum binding energy at higher rates of catalysis, The Journal of Physical Chemistry C, 10, pp. 6706--6713 (2019).
+%
+\bibitem{Ooka2021ACSCat}
+H. Ooka, M. E. Wintzer, R. Nakamura., Non-zero binding enhances kinetics of catalysis: machine learning analysis on the experimental hydrogen binding energy of platinum, ACS Catalysis, 11, pp. 6298--6303 (2021).
+%
+\bibitem{Gyanprakash2023JPCC}
+M. Gyanprakash D., Investigation of the shift in volcano peak for the oxygen evolution reaction at a high reaction rate, The Journal of Physical Chemistry C, 127, pp.21526--21533 (2023).
+%
+\bibitem{Ooka2025ChemSusChem}
+H. Ooka, T. Suda, K. Yatsuzuka, R. Nakamura, Thermoneutrality is not necessary to maximize oxygen evolution reaction rates, ChemSusChem, 18, pp. e202402625 (2025).
+%
+\bibitem{Dam2020SciRep}
+A. P. Dam, G. Papakonstantinou, K. Sundmacher, On the role of microkinetic network structure in the interplay between oxygen evolution reaction and catalyst dissolution, Scientific Reports, 10, pp. 14140 (2020).
+%
+\bibitem{Ooka2024JPCL}
+H. Ooka, M. Wintzer, H. Komatsu, T. Suda, K. Adachi, A. Li, S. Kong, H. Daisuke, A. Mochizuki Atsushi and R. Nakamura, Microkinetic model to rationalize the lifetime of electrocatalysis: trade-off between activity and stability, Journal of Physical Chemistry Letters, 15, pp. 10079--10085 (2024). 
+%
+\bibitem{Gorban}
+A. N. Gorban, O. Radulescu and A. Y. Zinovyev, Asymptotology of chemical reaction networks. Chemical Engineering Science, 65, pp. 2310--2324 (2010).
+%
+\bibitem{Kajita-2017}
+M. K. Kajita, K. Aihara, and T. J. Kobayashi, Balancing specificity, sensitivity, and speed of ligand discrimination by zero-order ultraspecificity, Physical Review E, 96, 012405 (2017).
+%
+\bibitem{Gunawardena}
+J. Gunawardena, A linear framework for time-scale separation in nonlinear biochemical systems, PLOS One, 7, pp. e36321 (2012).
+%
+\bibitem{Nowzari}
+C. Nowzari, V. M. Preciado, and G. J. Pappas, Analysis and control of epidemics: a survey of spreading processes on complex networks, IEEE Control Systems, 36, pp. 26--46 (2016).
+%
+\bibitem{Mei}
+W. Mei, S. Mohagheghi, S. Zampieri and Francesco Bullo, On the dynamics of deterministic epidemic propagation over networks, Annual Reviews in Control, 44, pp. 116--128 (2017).
+%
+\bibitem{Florian}
+F. Dörfler, J. W. S. Porco and F. Bullo, Electrical networks and algebraic graph theory: models, properties, and applications, 106, pp. 977--1005 (2018).
+%
+\bibitem{Olfati-Saber}
+R. Olfati-Saber, J. A. Fax and R. M. Murray, Consensus and cooperation in networked multi-agent systems, Proceedings of the IEEE, 95, pp. 215--233 (2007).
+%
+\bibitem{Ren2005}
+W. Ren and R. W. Beard, Consensus seeking in multi-agent systems under dynamically changing interaction topologies, IEEE Transactions on Automatic Control, 50, pp. 655--661 (2005).
+%
+\bibitem{Feinberg}
+M. Feinberg, Foundations of Chemical Reaction Network Theory, Springer, Cham, 2019.
+%
+\bibitem{Mirzaev-2013}
+I. Mirzaev and J. Gunawardena, Laplacian dynamics on general graphs. Bulletin of Mathematical Biology, 75. pp. 2118--2149 (2013).
+%
+\bibitem{Mirzaev-2015}
+I. Mirzaev and D. M. Bortz, Laplacian dynamics with synthesis and degradation. Bulletin of Mathematical Biology, 77, pp. 1013--1045 (2015).
+%
+\bibitem{Francesco}
+F. Bullo, Lecture on Network Systems, CreateSpace Independent Publishing Platform, 2018.
+%
+\bibitem{Bard}
+A. J. Bard and L. R. Faulkner, Electrochemical Methods: Fundamentals and Applications, 2nd ed., John Wiley \& Sons, New York, 2000.
+%
+\bibitem{Chaiken1982}
+S. Chaiken, A combinatorial proof of the all minors matrix tree theorem, SIAM Journal on Algebraic and Discrete Methods, 3, pp. 319--329 (1982).
+%↓小松20260528 望月先生への対応
+\bibitem{Marden1966}
+M. Marden, Geometry of Polynomials, 2nd ed., Mathematical Surveys, No. 3, American Mathematical Society, Providence, RI (1966).
+%
+\bibitem{Sontag-1998}
+E. Sontag, Mathematical Control Theory: Deterministic Finite Dimensional Systems, 2nd ed., Springer-Verlag, New York, 1998.
+%
+\bibitem{Hofbauer-2000}
+ J. Hofbauer and J. W. H. So, Diagonal dominance and harmless off-diagonal delays, Proceedings of the American Mathematical Society, 128,  pp. 2675-2682 (2000).
+%
+\bibitem{LawrencePerko}
+L. Perko, Differential Equations and Dynamical Systems, 3rd ed., Texts in Applied Mathematics, Springer-Verlag, New York, 2001.
+%
+\bibitem{Hassan-2002}
+H. K. Khalil, Nonlinear Systems, 3rd ed., Prentice Hall, Upper Saddle River, NJ, 2002.
+%
+\bibitem{Cherevko2016JEAC}
+S. Cherevko, S. Geiger, O. Kasian, A. Mingers and K. J. J. Mayrhofer, Oxygen evolution activity and stability of iridium in acidic media. Part 2. - Electrochemically grown hydrous iridium oxide, Journal of Electroanalytical Chemistry, 774, pp. 102--110 (2016).
+%
+\bibitem{Hodnik2015JPCC}
+N. Hodnik, P. Jovanovic, A. Pavlisic, B. Jozinovic, M. Zorko, M. Bele, V. S. Selih, M. Sala, S. Hocevar and M. Gaberscek, New insights into corrosion of ruthenium and ruthenium oxide nanoparticles in acidic media, Journal of Physical Chemistry C, 119, pp. 10140--10147 (2015).
+%
+\bibitem{Koper2013JSSE}
+M. T. M. Koper, Analysis of electrocatalytic reaction schemes: distinction between rate-determining and potential-determining steps, Journal of Solid State Electrochemistry, 17, pp. 339--344 (2013).
+%
+\bibitem{Takashima2012JACS}
+T. Takashima, K. Hashimoto, R. Nakamura, Mechanisms of pH-dependent activity for water oxidation to molecular oxygen by MnO2 electrocatalysts, Journal of the American Chemical Society, 134, pp. 1519--1527 (2012).
+%
+\bibitem{Rong2025AdvSci}
+C. Rong, Q. Sun, J. Zhu, H. Arandiyan, Z. Shao, Y. Wang, Y. Chen, Advances in stabilizing spinel cobalt oxide-based catalysts for acidic oxygen evolution reaction, Advanced Science, 12, pp. e09415 (2025).
+%
+\bibitem{Komatsu-Ooka}
+H. Komatsu, H. Ooka, R. Nakamura, and A. Mochizuki, Classifying Deactivation Regimes of Electrocatalysis Under Potentiostatic Conditions, preprint (2026).
+%
+\bibitem{chella} 
+V. Chellaboina, S. P. Bhat, W. M. Haddad and D. S. Bernstein,
+Modeling and analysis of mass-action kinetics - Nonnegativity, realizability, reducibility, and semistability, IEEE Control Systems Magazine, Vol.29, August, pp.60--78  (2009).
+% 
+\end{thebibliography}
+\end{document}
+
