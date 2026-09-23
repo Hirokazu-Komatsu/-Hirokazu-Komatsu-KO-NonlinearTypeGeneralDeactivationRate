@@ -1,0 +1,1 @@
+# -Hirokazu-Komatsu-KO-NonlinearTypeGeneralDeactivationRate
